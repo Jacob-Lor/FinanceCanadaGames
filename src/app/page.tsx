@@ -2,8 +2,11 @@
 
 import React from "react";
 import LiquidEther from "@/components/LiquidEther";
+import Dock from "@/components/Dock";
+import { VscHome, VscArchive, VscAccount, VscSettingsGear } from "react-icons/vsc";
+import { CiPlay1 } from "react-icons/ci";
 
-// --- Simple navigation helper ---
+// --- Navigation Helper ---
 const navigateTo = (path: string) => {
   try {
     window.location.href = path;
@@ -12,8 +15,7 @@ const navigateTo = (path: string) => {
   }
 };
 
-// --- Reusable UI Components ---
-
+// --- Reusable Components ---
 const AnimatedButton = ({
   text,
   onClick,
@@ -27,7 +29,6 @@ const AnimatedButton = ({
                hover:bg-red-500 active:scale-95 border-2 border-transparent hover:border-red-300"
   >
     <span className="relative z-10">{text}</span>
-    <span className="absolute inset-0 bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-10"></span>
   </button>
 );
 
@@ -53,6 +54,13 @@ const FeatureCard = ({
 
 // --- Main Page ---
 export default function LiquidPage() {
+  const dockItems = [
+    { icon: <VscHome size={18} />, label: "Home", onClick: () => navigateTo("/") },
+    { icon: <CiPlay1 size={18} />, label: "Play", onClick: () => alert("Archive!") },
+    { icon: <VscAccount size={18} />, label: "Profile", onClick: () => alert("Profile!") },
+    { icon: <VscSettingsGear size={18} />, label: "Settings", onClick: () => alert("Settings!") },
+  ];
+
   return (
     <main className="min-h-screen bg-gray-50 text-gray-800 font-sans relative overflow-hidden">
 
@@ -97,9 +105,8 @@ export default function LiquidPage() {
         </h1>
 
         <p className="text-2xl text-gray-100 max-w-3xl mx-auto mb-12 drop-shadow-lg">
-          Experience a mesmerizing **liquid-ether** animation while exploring
-          how fluid motion and interactivity can elevate your app’s user
-          experience.
+          Experience a mesmerizing <strong>liquid-ether</strong> animation while exploring
+          how fluid motion and interactivity can elevate your app’s user experience.
         </p>
 
         <AnimatedButton
@@ -130,6 +137,16 @@ export default function LiquidPage() {
             icon={<span>🎨</span>}
           />
         </div>
+      </div>
+
+      {/* --- Dock Section --- */}
+      <div className="fixed bottom-8 left-0 w-full flex justify-center z-20">
+        <Dock
+          items={dockItems}
+          panelHeight={68}
+          baseItemSize={50}
+          magnification={70}
+        />
       </div>
     </main>
   );
